@@ -1140,7 +1140,7 @@ fn try_send_from_impl(
     env: Env,
     info: &MessageInfo,
     messages: &mut Vec<CosmosMsg>,
-    spender: Addr, // redundant but more efficient
+    spender: &Addr, // redundant but more efficient
     owner: Addr,
     recipient: Addr,
     recipient_code_hash: Option<String>,
@@ -1151,7 +1151,7 @@ fn try_send_from_impl(
     try_transfer_from_impl(
         deps,
         &env,
-        &spender,
+        spender,
         &owner,
         &recipient,
         amount,
@@ -1193,7 +1193,7 @@ fn try_send_from(
         env,
         info,
         &mut messages,
-        info.sender.clone(),
+        &info.sender,
         owner,
         recipient,
         recipient_code_hash,
@@ -1221,7 +1221,7 @@ fn try_batch_send_from(
             env.clone(),
             info,
             &mut messages,
-            info.sender.clone(),
+            &info.sender,
             action.owner,
             action.recipient,
             action.recipient_code_hash,
